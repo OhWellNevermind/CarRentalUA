@@ -1,14 +1,14 @@
 import { FC, useState } from "react";
-import { AppDispatch, Car } from "../../redux/cars/types";
-import { HeartIcon } from "../../components/HeartIcon";
-import { CarInfoModal } from "../../components/CarInfoModal";
-import noImage from "../../assets/noImage.png";
-import { FilledHeartIcon } from "../../components/FilledHeartIcon";
+import { AppDispatch, Car } from "../redux/cars/types";
 import { useDispatch } from "react-redux";
 import {
   addToFavourites,
   removeFromFavourites,
-} from "../../redux/cars/operations";
+} from "../redux/cars/operations";
+import { FilledHeartIcon } from "./FilledHeartIcon";
+import { HeartIcon } from "./HeartIcon";
+import noImage from "../assets/noImage.png";
+import { CarInfoModal } from "./CarInfoModal";
 
 export const CatalogItem: FC<Car> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,12 +31,10 @@ export const CatalogItem: FC<Car> = (props) => {
   return (
     <li className="flex flex-col w-[274px]">
       <div className="h-[268px] rounded-[14px] relative">
-        {favourite ? (
+        {favourite.id ? (
           <button
             onClick={() => {
-              if (typeof favourite === "object") {
-                dispatch(removeFromFavourites(favourite.id));
-              }
+              dispatch(removeFromFavourites(favourite.id!));
             }}
             className="absolute top-[14px] right-[14px]"
             type="button"

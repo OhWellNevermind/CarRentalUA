@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Car, Favourite } from "./types";
-import { addToFavourites, getCars, removeFromFavourites } from "./operations";
+import {
+  addToFavourites,
+  getByMake,
+  getCars,
+  removeFromFavourites,
+} from "./operations";
 import toast from "react-hot-toast";
 
 interface CarsState {
@@ -72,7 +77,7 @@ export const carsSlice = createSlice({
             if (favourite.car_id === car.id) {
               return {
                 ...car,
-                favourite: false,
+                favourite: {},
               };
             }
 
@@ -80,6 +85,16 @@ export const carsSlice = createSlice({
               ...car,
             };
           });
+        }
+      )
+      .addCase(
+        getByMake.fulfilled,
+        (
+          state: CarsState,
+          action: PayloadAction<{ cars: Car[]; favourites: Favourite[] }>
+        ) => {
+          state.cars = action.payload.cars;
+          state.favourites = action.payload.favourites;
         }
       ),
 });

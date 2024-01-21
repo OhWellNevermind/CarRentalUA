@@ -24,7 +24,7 @@ export const getCars = createAsyncThunk(
 
         return {
           ...car,
-          favourite: false,
+          favourite: {},
         };
       });
 
@@ -64,6 +64,41 @@ export const removeFromFavourites = createAsyncThunk(
         `/favourites/${favourite_id}`
       );
       return data;
+    } catch (err) {
+      const error = err as Error | AxiosError;
+      if (!axios.isAxiosError(error)) {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getByMake = createAsyncThunk(
+  "cars/getByMake",
+  async (make: string, thunkAPI) => {
+    try {
+      const { data: cars } = await axios.get<Car[]>(`/cars?make=${make}`);
+      const { data: favourites } = await axios.get<Favourite[]>("/favourites");
+
+      const carsWithFavourites = cars.map((car) => {
+        const favourite = favourites.find(
+          (favourite) => favourite.car_id === car.id
+        );
+        if (favourite) {
+          return {
+            ...car,
+            favourite,
+          };
+        }
+
+        return {
+          ...car,
+          favourite: {},
+        };
+      });
+
+      return { cars: carsWithFavourites, favourites };
     } catch (err) {
       const error = err as Error | AxiosError;
       if (!axios.isAxiosError(error)) {
