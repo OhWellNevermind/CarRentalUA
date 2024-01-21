@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
+
+@font-face {
+  font-family: "Manrope";
+  src: url(./assets/fonts/Manrope-Regular.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url(./assets/fonts/Manrope-Medium.woff2) format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url(./assets/fonts/Manrope-SemiBold.woff2) format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind utilities;
+
+@layer components {
+  .catalog-item-desc {
+    @apply text-gray text-[12px] leading-[16px] pr-[6px] border-r-[1px] border-border last:pr-0 last:border-r-0 text-nowrap;
+  }
+  .condition-item {
+    @apply text-[#363535] text-[12px] leading-[18px] px-[14px] py-[7px] bg-[#F9F9F9] rounded-[35px] w-fit;
+  }
+}
