@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { Car } from "../redux/cars/types";
 import { CrossIcon } from "./CrossIcon";
 import noImage from "../assets/noImage.png";
-import { Button } from "./Button";
+import { numberWithCommas } from "../utils/nubmerWithComa";
 
 type Props = Car & {
   closeModal: () => void;
@@ -121,7 +121,7 @@ export const CarInfoModal: FC<Props> = ({ closeModal, ...props }) => {
           Rental Conditions:
         </h3>
         <div>
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-2 flex-wrap mb-6">
             <p className="condition-item">
               {rentalConditionMinialAge.split(": ")[0]}:{" "}
               <span className="font-semibold text-blue">
@@ -135,7 +135,9 @@ export const CarInfoModal: FC<Props> = ({ closeModal, ...props }) => {
             ))}
             <p className="condition-item">
               Mileage:
-              <span className="font-semibold text-blue">{mileage}</span>
+              <span className="font-semibold text-blue">
+                {numberWithCommas(mileage)}
+              </span>
             </p>
             <p className="condition-item">
               Price:
@@ -143,7 +145,9 @@ export const CarInfoModal: FC<Props> = ({ closeModal, ...props }) => {
             </p>
           </div>
         </div>
-        <Button text="Rental Car" className="px-[50px]" />
+        <a href="tel:+380730000000" className="button px-[50px]">
+          Rental Car
+        </a>
       </div>
     </div>,
     document.getElementById("portal")!

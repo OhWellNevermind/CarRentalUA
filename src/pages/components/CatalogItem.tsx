@@ -3,7 +3,6 @@ import { Car } from "../../redux/cars/types";
 import { HeartIcon } from "../../components/HeartIcon";
 import { CarInfoModal } from "../../components/CarInfoModal";
 import noImage from "../../assets/noImage.png";
-import { Button } from "../../components/Button";
 
 export const CatalogItem: FC<Car> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,7 +63,9 @@ export const CatalogItem: FC<Car> = (props) => {
           ) : null}
         </div>
       </div>
-      <Button onClick={() => setIsOpen(true)} text="Learn more" className="" />
+      <button onClick={() => setIsOpen(true)} type="button" className="button">
+        Learn more
+      </button>
       {isOpen && (
         <CarInfoModal
           {...props}

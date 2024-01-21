@@ -34,4 +34,7 @@
   .condition-item {
     @apply text-[#363535] text-[12px] leading-[18px] px-[14px] py-[7px] bg-[#F9F9F9] rounded-[35px] w-fit;
   }
+  .button {
+    @apply bg-blue text-white font-semibold leading-5 py-[12px] rounded-xl hover:bg-dark-blue mt-[28px];
+  }
 }

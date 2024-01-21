@@ -4,16 +4,22 @@ import { getCars } from "./operations";
 
 interface CarsState {
   cars: Car[];
+  page: number;
 }
 
 const initialState: CarsState = {
   cars: [],
+  page: 1,
 };
 
 export const carsSlice = createSlice({
   name: "cars",
   initialState,
-  reducers: {},
+  reducers: {
+    loadMore: (state: CarsState) => {
+      state.page += 1;
+    },
+  },
   extraReducers: (builder) =>
     builder.addCase(
       getCars.fulfilled,
@@ -22,5 +28,7 @@ export const carsSlice = createSlice({
       }
     ),
 });
+
+export const { loadMore } = carsSlice.actions;
 
 export const carsReducer = carsSlice.reducer;
