@@ -1,11 +1,18 @@
 import { FC, useState } from "react";
-import { Car } from "../../redux/cars/types";
+import { AppDispatch, Car } from "../../redux/cars/types";
 import { HeartIcon } from "../../components/HeartIcon";
 import { CarInfoModal } from "../../components/CarInfoModal";
 import noImage from "../../assets/noImage.png";
+import { FilledHeartIcon } from "../../components/FilledHeartIcon";
+import { useDispatch } from "react-redux";
+import {
+  addToFavourites,
+  removeFromFavourites,
+} from "../../redux/cars/operations";
 
 export const CatalogItem: FC<Car> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
 
   const {
     img,
@@ -18,14 +25,33 @@ export const CatalogItem: FC<Car> = (props) => {
     type,
     id,
     accessories,
+    favourite,
   } = props;
 
   return (
     <li className="flex flex-col w-[274px]">
       <div className="h-[268px] rounded-[14px] relative">
-        <button className="absolute top-[14px] right-[14px]" type="button">
-          <HeartIcon />
-        </button>
+        {favourite ? (
+          <button
+            onClick={() => {
+              if (typeof favourite === "object") {
+                dispatch(removeFromFavourites(favourite.id));
+              }
+            }}
+            className="absolute top-[14px] right-[14px]"
+            type="button"
+          >
+            <FilledHeartIcon />
+          </button>
+        ) : (
+          <button
+            className="absolute top-[14px] right-[14px]"
+            onClick={() => dispatch(addToFavourites(id))}
+            type="button"
+          >
+            <HeartIcon />
+          </button>
+        )}
         {img ? (
           <img
             className="block w-full rounded-[14px] h-full object-cover"

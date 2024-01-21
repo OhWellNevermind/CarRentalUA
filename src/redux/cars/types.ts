@@ -21,4 +21,10 @@ export type Car = {
   address: string;
   rentalConditions: string;
   mileage: number;
+  favourite?: Favourite | boolean;
+};
+
+export type Favourite = {
+  id: string;
+  car_id: number;
 };
